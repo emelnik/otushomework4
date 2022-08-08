@@ -1,10 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -12,17 +9,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.HashSet;
+import java.util.Set;
 
 public class testChromeBrowser {
 
-    protected WebDriver driver;
+    private WebDriver driver;
     private Logger logger = LogManager.getLogger();
 
-
-    @Before
-    public void StartUp() {
-        logger.info("Драйвер поднят");
+    @BeforeClass
+            public static void startDriver(){
+                WebDriverManager.chromedriver().setup();
     }
+
 
     @After
     public void End(){
@@ -34,10 +33,10 @@ public class testChromeBrowser {
 
     @Test
     public void serachOtusDuck(){
-        WebDriverManager.chromedriver().setup();
+        startDriver();
         ChromeOptions chOptions = new ChromeOptions();
         chOptions.addArguments("headless");
-        driver = new ChromeDriver(chOptions);
+        driver = new ChromeDriver();
 
         driver.manage().window().maximize();
 
@@ -48,15 +47,18 @@ public class testChromeBrowser {
 
         getElement(firstElementDDSearchPage);
 
-        String actual = driver.findElement(By.xpath("//span[normalize-space()='https://otus.ru']")).getText();
-        Assert.assertEquals("https://otus.ru", actual);
+        String actual = driver.findElements(By.xpath("(//article[@id='r1-0'])[1]"))
+                .get(0)
+                .getText();
+
+        Assert.assertEquals("https://otus.ru", actual.substring(0,15));
     }
 
     @Test
     public void testModalWindow(){
         By modalWindow = By.xpath("//div[@class='pp_content_container']");
 
-        WebDriverManager.chromedriver().setup();
+        startDriver();
         ChromeOptions chOptions = new ChromeOptions();
         chOptions.addArguments("kiosk");
         driver = new ChromeDriver(chOptions);
@@ -70,7 +72,9 @@ public class testChromeBrowser {
 
     @Test
     public void testCookieOtus(){
-        WebDriverManager.chromedriver().setup();
+        Set<Cookie> cookeList = new HashSet<>();
+
+        startDriver();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
 
@@ -85,11 +89,13 @@ public class testChromeBrowser {
                 .sendKeys(email);
         driver.findElement(By.xpath("//input[@type='password']"))
                 .sendKeys(password);
-        driver.findElement(By.xpath("//div[@class='new-input-line new-input-line_last new-input-line_relative']")).click();
-        logger.info(driver.manage().getCookies());
+        driver.findElement(By.xpath("//form[@action='/login/']//button[@type='submit']")).click();
+        cookeList = driver.manage().getCookies();
+
+        for (Cookie c:cookeList) {
+            System.out.println(c.getName() + " -> " + c.getValue());
+        }
     }
-
-
 
     private WebElement getElement(By locator){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
