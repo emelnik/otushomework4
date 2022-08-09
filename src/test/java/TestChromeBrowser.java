@@ -12,7 +12,7 @@ import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
-public class testChromeBrowser {
+public class TestChromeBrowser {
 
     private WebDriver driver;
     private Logger logger = LogManager.getLogger();
@@ -23,16 +23,16 @@ public class testChromeBrowser {
     }
 
 
-    @After
-    public void End(){
-        if(driver != null){
-            driver.quit();
-        }
-        logger.info("Драйвер закрыт");
-    }
+//    @After
+//    public void end(){
+//        if(driver != null){
+//            driver.quit();
+//        }
+//        logger.info("Драйвер закрыт");
+//    }
 
     @Test
-    public void SerachOtusDuckTest(){
+    public void serachOtusDuckTest(){
         startDriver();
         ChromeOptions chOptions = new ChromeOptions();
         chOptions.addArguments("headless");
@@ -55,7 +55,7 @@ public class testChromeBrowser {
     }
 
     @Test
-    public void ModalWindowTest(){
+    public void modalWindowTest(){
         By modalWindow = By.xpath("//div[@class='pp_content_container']");
 
         startDriver();
@@ -64,14 +64,14 @@ public class testChromeBrowser {
         driver = new ChromeDriver(chOptions);
 
         driver.get("https://demo.w3layouts.com/demos_new/template_demo/03-10-2020/photoflash-liberty-demo_Free/685659620/web/index.html?_ga=2.181802926.889871791.1632394818-2083132868.1632394818");
-        driver.findElement(By.xpath("//*[@class='portfolio-item2 content'][position()=2]")).click();
+        driver.findElement(By.xpath("//li[@data-id='id-2']")).click();
 
         getElement(modalWindow);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='pp_content_container']")).isDisplayed());
     }
 
     @Test
-    public void CookieOtusTest(){
+    public void cookieOtusTest(){
         Set<Cookie> cookeList = new HashSet<>();
 
         startDriver();
