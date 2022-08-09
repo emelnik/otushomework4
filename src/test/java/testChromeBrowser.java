@@ -32,7 +32,7 @@ public class testChromeBrowser {
     }
 
     @Test
-    public void serachOtusDuck(){
+    public void SerachOtusDuckTest(){
         startDriver();
         ChromeOptions chOptions = new ChromeOptions();
         chOptions.addArguments("headless");
@@ -55,7 +55,7 @@ public class testChromeBrowser {
     }
 
     @Test
-    public void testModalWindow(){
+    public void ModalWindowTest(){
         By modalWindow = By.xpath("//div[@class='pp_content_container']");
 
         startDriver();
@@ -71,7 +71,7 @@ public class testChromeBrowser {
     }
 
     @Test
-    public void testCookieOtus(){
+    public void CookieOtusTest(){
         Set<Cookie> cookeList = new HashSet<>();
 
         startDriver();
