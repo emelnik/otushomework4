@@ -23,13 +23,13 @@ public class TestChromeBrowser {
     }
 
 
-//    @After
-//    public void end(){
-//        if(driver != null){
-//            driver.quit();
-//        }
-//        logger.info("Драйвер закрыт");
-//    }
+    @After
+    public void end(){
+        if(driver != null){
+            driver.quit();
+        }
+        logger.info("Драйвер закрыт");
+    }
 
     @Test
     public void serachOtusDuckTest(){
