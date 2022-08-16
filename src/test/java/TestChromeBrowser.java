@@ -36,7 +36,7 @@ public class TestChromeBrowser {
         startDriver();
         ChromeOptions chOptions = new ChromeOptions();
         chOptions.addArguments("headless");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(chOptions);
 
         driver.manage().window().maximize();
 
