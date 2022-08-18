@@ -41,7 +41,10 @@ public class TestChromeBrowser {
         driver.manage().window().maximize();
 
         By firstElementDDSearchPage = By.xpath("//*[@id='r1-0']");
+        By searchInputEnabled = By.xpath("//*[@id='search_form_input_homepage']");
+
         driver.get("https://duckduckgo.com/");
+        getElement(searchInputEnabled);
         driver.findElement(By.xpath("//*[@id='search_form_input_homepage']")).sendKeys("ОТУС");
         driver.findElement(By.xpath("//*[@id='search_button_homepage']")).click();
 
