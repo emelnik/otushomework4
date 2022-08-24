@@ -36,6 +36,8 @@ public class TestChromeBrowser {
         startDriver();
         ChromeOptions chOptions = new ChromeOptions();
         chOptions.addArguments("headless");
+        chOptions.setCapability("acceptSslCerts", true);
+        chOptions.setCapability("acceptInsecureCerts", true);
         driver = new ChromeDriver(chOptions);
 
         driver.manage().window().maximize();
