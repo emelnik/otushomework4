@@ -35,18 +35,22 @@ public class TestChromeBrowser {
     public void serachOtusDuckTest(){
         startDriver();
         ChromeOptions chOptions = new ChromeOptions();
-        chOptions.addArguments("headless");
+
+        chOptions.addArguments("--headless");
+        chOptions.addArguments("--window-size=1920,1680");
+        chOptions.addArguments("--user-agent=Mozilla/5.0 (Macintosh");
         chOptions.setCapability("acceptSslCerts", true);
         chOptions.setCapability("acceptInsecureCerts", true);
-        driver = new ChromeDriver(chOptions);
 
-        driver.manage().window().maximize();
+        driver = new ChromeDriver(chOptions);
 
         By firstElementDDSearchPage = By.xpath("//*[@id='r1-0']");
         By searchInputEnabled = By.xpath("//*[@id='search_form_input_homepage']");
 
         driver.get("https://duckduckgo.com/");
+
         getElement(searchInputEnabled);
+
         driver.findElement(By.xpath("//*[@id='search_form_input_homepage']")).sendKeys("ОТУС");
         driver.findElement(By.xpath("//*[@id='search_button_homepage']")).click();
 
