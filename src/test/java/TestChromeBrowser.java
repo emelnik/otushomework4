@@ -44,14 +44,13 @@ public class TestChromeBrowser {
 
         driver = new ChromeDriver(chOptions);
 
+        driver.get("https://duckduckgo.com/");
+
         By firstElementDDSearchPage = By.xpath("//*[@id='r1-0']");
         By searchInputEnabled = By.xpath("//*[@id='search_form_input_homepage']");
 
-        driver.get("https://duckduckgo.com/");
+        getElement(searchInputEnabled).sendKeys("ОТУС");
 
-        getElement(searchInputEnabled);
-
-        driver.findElement(By.xpath("//*[@id='search_form_input_homepage']")).sendKeys("ОТУС");
         driver.findElement(By.xpath("//*[@id='search_button_homepage']")).click();
 
         getElement(firstElementDDSearchPage);
@@ -108,7 +107,7 @@ public class TestChromeBrowser {
 
     private WebElement getElement(By locator){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
 }
