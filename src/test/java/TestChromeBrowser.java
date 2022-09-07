@@ -87,14 +87,17 @@ public class TestChromeBrowser {
         driver.manage().window().maximize();
 
         By mm = By.xpath("//div[@data-mode='login']");
+        By inputEmail = By.xpath("//form[@action='/login/']//input[@name='email']");
         String email = "misom21861@altpano.com";
         String password = "123Qwerty123!";
 
         driver.get("https://otus.ru");
         driver.findElement(By.xpath("//button[@data-modal-id='new-log-reg']")).click();
         getElement(mm);
-        driver.findElement(By.xpath("//form[@action='/login/']//input[@name='email']"))
+        getElement(inputEmail);
+        driver.findElement(inputEmail)
                 .sendKeys(email);
+
         driver.findElement(By.xpath("//input[@type='password']"))
                 .sendKeys(password);
         driver.findElement(By.xpath("//form[@action='/login/']//button[@type='submit']")).click();
